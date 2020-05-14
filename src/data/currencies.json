@@ -116,7 +116,7 @@
     "currency_code": "EGP",
     "currency_name": "Egyptian pound",
     "currency_name_short": "Pound",
-    "display_unicode": "a5",
+    "display_unicode": "\u0045\u00A3",
     "flag_name": "EG"
   },
   {
@@ -132,7 +132,7 @@
     "currency_code": "FJD",
     "currency_name": "Fiji Dollar",
     "currency_name_short": "Dollar",
-    "display_unicode": "a5",
+    "display_unicode": "\u0046\u004a\u0024",
     "flag_name": "FJ"
   },
   {
@@ -212,7 +212,7 @@
     "currency_code": "JPY",
     "currency_name": "Japanese yen",
     "currency_name_short": "Yen",
-    "display_unicode": "",
+    "display_unicode": "\u00a5",
     "flag_name": "JP"
   },
   {
@@ -260,7 +260,7 @@
     "currency_code": "NZD",
     "currency_name": "New Zealand dollar",
     "currency_name_short": "Dollar",
-    "display_unicode": "a5",
+    "display_unicode": "\u004e\u005a\u0024",
     "flag_name": "NZ"
   },
   {
