@@ -26,6 +26,7 @@ class CurrencyCard extends Component {
             <Col sm={9}>
               <input
                 type="number"
+                title="Please enter a number, e.g. 123.987."
                 className="h-100 w-100 text-right border-top-0 border-left-0 border-right-0 fs-xlg"
               />
             </Col>
