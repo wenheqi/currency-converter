@@ -5,20 +5,17 @@ import "./CurrencyCard.css";
 import currencies from "../data/currencies";
 
 function CurrencyCard({ code }) {
-  const [currenciesJson, setCurrenciesJson] = useState({});
+  function loadCurrenciesJson() {
+    let tmpJson = {};
+    currencies.forEach((currency) => {
+      tmpJson[currency.currency_code] = currency;
+    });
+    return tmpJson;
+  }
+  const [currenciesJson] = useState(loadCurrenciesJson());
   const [exchangeCode, setExchangeCode] = useState(code);
 
-  useEffect(() => {
-    if (currenciesJson === {}) {
-      let tmpJson = {};
-      currencies.forEach((currency) => {
-        tmpJson[currency.currency_code] = currency;
-        console.log(tmpJson);
-      });
-      setCurrenciesJson(tmpJson);
-      console.log(currenciesJson);
-    }
-  }, [currenciesJson]);
+  useEffect(() => {}, [currenciesJson]);
 
   function changeSelect(event) {
     setExchangeCode(event.target.value);
@@ -42,13 +39,19 @@ function CurrencyCard({ code }) {
         </select>
       </Card.Header>
       <Card.Body>
-        <Card.Title>US dollar</Card.Title>
-        <Card.Subtitle>$</Card.Subtitle>
+        <Card.Title>{currenciesJson[exchangeCode].currency_name}</Card.Title>
+        <Card.Subtitle>
+          {currenciesJson[exchangeCode].display_unicode}
+        </Card.Subtitle>
         <Row>
           <Col sm={3}>
             <img
               alt="flag of United States"
-              src={"https://www.countryflags.io/be/shiny/64.png"}
+              src={
+                "https://www.countryflags.io/" +
+                currenciesJson[exchangeCode].flag_name +
+                "/shiny/64.png"
+              }
             />
           </Col>
           <Col sm={9}>
