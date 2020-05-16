@@ -17,34 +17,48 @@ import HistorialCard from "./components/HistorialCard";
 class App extends React.Component {
   render() {
     return (
-      <Container>
-        <Row className="mt-3">
-          <Col sm={12} lg={5}>
-            <CurrencyCard />
-          </Col>
-          <Col sm={12} lg={2} className="m-auto">
-            <OverlayTrigger
-              key="tooltip-key-swap"
-              placement="top"
-              overlay={<Tooltip id="tooltip-swap3">Swap currencies</Tooltip>}
-            >
-              <img
-                className="img-fluid d-block mx-auto p-sm-2 p-lg-0 w-25"
-                src={swapSvg}
-                alt="swap"
-              ></img>
-            </OverlayTrigger>
-          </Col>
-          <Col sm={12} lg={5}>
-            <CurrencyCard />
-          </Col>
-        </Row>
-        <Row className="mt-3">
-          <Col className="min-vh-100">
-            <HistorialCard />
-          </Col>
-        </Row>
-      </Container>
+      <div
+        class="container"
+        style={{
+          backgroundImage:
+            "linear-gradient(45deg, rgb(0, 159, 221) 0%, rgb(0, 148, 141) 100%)",
+        }}
+      >
+        <div class="row min-vh-100">
+          <div class="col mt-3">
+            <div class="d-flex flex-column h-100">
+              <div class="row">
+                <div class="col-12 col-lg-5">
+                  <CurrencyCard />
+                </div>
+                <div class="col-12 col-lg-2 m-auto">
+                  <OverlayTrigger
+                    key="tooltip-key-swap"
+                    placement="top"
+                    overlay={
+                      <Tooltip id="tooltip-swap3">Swap currencies</Tooltip>
+                    }
+                  >
+                    <img
+                      className="img-fluid d-block mx-auto p-4 p-lg-0 w-25"
+                      src={swapSvg}
+                      alt="swap"
+                    ></img>
+                  </OverlayTrigger>
+                </div>
+                <div class="col-12 col-lg-5">
+                  <CurrencyCard />
+                </div>
+              </div>
+              <div class="row flex-grow-1">
+                <div class="col mt-3">
+                  <HistorialCard />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

@@ -60,9 +60,9 @@ export default class HistorialCard extends Component {
 
   render() {
     return (
-      <ResponsiveContainer height="50%">
+      <ResponsiveContainer width="100%">
         <LineChart
-          width={500}
+          width="100%"
           height={300}
           data={data}
           margin={{
