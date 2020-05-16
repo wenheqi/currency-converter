@@ -45,7 +45,7 @@ class App extends React.Component {
                   </OverlayTrigger>
                 </div>
                 <div className="col-12 col-lg-5">
-                  <CurrencyCard code="USD" />
+                  <CurrencyCard code="AED" />
                 </div>
               </div>
               <div className="row flex-grow-1">
