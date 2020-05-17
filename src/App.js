@@ -33,7 +33,11 @@ function App() {
           <div className="d-flex flex-column h-100">
             <div className="row">
               <div className="col-12 col-lg-5">
-                <CurrencyCard srcCode={srcCode} dstCode={dstCode} />
+                <CurrencyCard
+                  srcCode={srcCode}
+                  dstCode={dstCode}
+                  sendCodeToParent={sendSrcCodeToParent}
+                />
               </div>
               <div className="col-12 col-lg-2 m-auto">
                 <img
@@ -43,7 +47,11 @@ function App() {
                 ></img>
               </div>
               <div className="col-12 col-lg-5">
-                <CurrencyCard srcCode={dstCode} dstCode={srcCode} />
+                <CurrencyCard
+                  srcCode={dstCode}
+                  dstCode={srcCode}
+                  sendCodeToParent={sendDstCodeToParent}
+                />
               </div>
             </div>
             <div className="row flex-grow-1">
