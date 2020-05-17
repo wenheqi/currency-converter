@@ -4,7 +4,7 @@ import "./CurrencyCard.css";
 
 import currencies from "../data/currencies";
 
-function CurrencyCard({ code }) {
+function CurrencyCard({ srcCode, dstCode, amount }) {
   function loadCurrenciesJson() {
     let tmpJson = {};
     currencies.forEach((currency) => {
@@ -12,10 +12,30 @@ function CurrencyCard({ code }) {
     });
     return tmpJson;
   }
-  const [currenciesJson] = useState(loadCurrenciesJson());
-  const [exchangeCode, setExchangeCode] = useState(code);
 
-  useEffect(() => {}, [currenciesJson]);
+  const [currenciesJson] = useState(loadCurrenciesJson());
+  const [exchangeCode, setExchangeCode] = useState(srcCode);
+  const [targetCode, setTargetCode] = useState(dstCode);
+  const [exchangeRate, setExchangeRate] = useState({ rates: {} });
+  const [exchangeAmount, setExchangeAmount] = useState(amount);
+
+  const handleChange = (e) => {
+    setExchangeCode(e.target.value);
+  };
+
+  useEffect(() => {
+    fetch(
+      "https://api.exchangeratesapi.io/latest?symbols=" +
+        targetCode +
+        "&base=" +
+        exchangeCode
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setExchangeRate(result);
+      });
+  }, [exchangeCode, srcCode]);
 
   function changeSelect(event) {
     setExchangeCode(event.target.value);
@@ -58,15 +78,15 @@ function CurrencyCard({ code }) {
             <input
               type="number"
               title="Please enter a number, e.g. 123.987."
+              value={amount}
+              onChange={handleChange}
               className="h-100 w-100 text-right border-top-0 border-left-0 border-right-0 fs-xlg"
             />
           </Col>
         </Row>
         <Row className="mt-2">
           <Col>
-            <span className="fs-sm">
-              Last update: 12:00:00 pm 05/15/2020 PDT
-            </span>
+            <span className="fs-sm">Last update: {exchangeRate.date}</span>
           </Col>
         </Row>
       </Card.Body>
