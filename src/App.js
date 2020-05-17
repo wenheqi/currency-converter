@@ -83,6 +83,11 @@ function App() {
                 />
               </div>
             </div>
+            <div className="row mt-3">
+              <div className="col">
+                <span>Other exchanges rate today (base: {srcCode})</span>
+              </div>
+            </div>
             <div className="row flex-grow-1">
               <div className="col mt-3">
                 <HistorialCard src={srcCode} dst={dstCode} />
