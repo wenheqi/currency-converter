@@ -85,7 +85,7 @@ function App() {
             </div>
             <div className="row flex-grow-1">
               <div className="col mt-3">
-                <HistorialCard />
+                <HistorialCard src={srcCode} dst={dstCode} />
               </div>
             </div>
           </div>
