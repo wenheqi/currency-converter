@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   ResponsiveContainer,
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -10,82 +11,82 @@ import {
   Legend,
 } from "recharts";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+// const data = [
+//   { name: "AED", rate: 3.97467 },
+//   { name: "AFN", rate: 83.005989 },
+//   { name: "ALL", rate: 123.366634 },
+//   { name: "AMD", rate: 527.975462 },
+//   { name: "ANG", rate: 1.941971 },
+//   { name: "AOA", rate: 603.731679 },
+//   { name: "ARS", rate: 73.193491 },
+//   { name: "AUD", rate: 1.687 },
+//   { name: "AWG", rate: 1.947888 },
+//   { name: "AZN", rate: 1.843968 },
+//   { name: "BAM", rate: 1.957295 },
 
-export default class HistorialCard extends Component {
-  static jsfiddleUrl = "https://jsfiddle.net/alidingling/xqjtetw0/";
+//   { name: "AED", rate: 3.97467 },
+//   { name: "AFN", rate: 83.005989 },
+//   { name: "ALL", rate: 123.366634 },
+//   { name: "AMD", rate: 527.975462 },
+//   { name: "ANG", rate: 1.941971 },
+//   { name: "AOA", rate: 603.731679 },
+//   { name: "ARS", rate: 73.193491 },
+//   { name: "AUD", rate: 1.687 },
+//   { name: "AWG", rate: 1.947888 },
+//   { name: "AZN", rate: 1.843968 },
+//   { name: "BAM", rate: 1.957295 },
 
-  render() {
-    return (
-      <ResponsiveContainer width="100%">
-        <LineChart
-          width="100%"
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="pv"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-      </ResponsiveContainer>
-    );
-  }
+//   { name: "AED", rate: 3.97467 },
+//   { name: "AFN", rate: 83.005989 },
+//   { name: "ALL", rate: 123.366634 },
+//   { name: "AMD", rate: 527.975462 },
+//   { name: "ANG", rate: 1.941971 },
+//   { name: "AOA", rate: 603.731679 },
+//   { name: "ARS", rate: 73.193491 },
+//   { name: "AUD", rate: 1.687 },
+//   { name: "AWG", rate: 1.947888 },
+//   { name: "AZN", rate: 1.843968 },
+//   { name: "BAM", rate: 1.957295 },
+// ];
+
+export default function HistorialCard({ src, dst }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log("useEffect in Historical card is called");
+    fetch(
+      "http://data.fixer.io/api/2020-05-16?access_key=7d8d9e998e00341ea569445f3215f0a0"
+    )
+      .then((res) => res.json())
+      .then((json) => json.rates)
+      .then((json) => {
+        let tmpData = [];
+        Object.keys(json).forEach((key) => {
+          if (key !== src) {
+            let tmpJson = { name: key, rate: json[key] / json[src] };
+            tmpData.push(tmpJson);
+          }
+        });
+        setData(tmpData);
+      });
+    console.log(data);
+  }, [src, dst]);
+
+  return (
+    <ResponsiveContainer width="100%">
+      <BarChart
+        width={600}
+        height={300}
+        data={data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="rate" fill="#31aefa" />
+      </BarChart>
+    </ResponsiveContainer>
+  );
 }
