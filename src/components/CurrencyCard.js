@@ -4,7 +4,7 @@ import "./CurrencyCard.css";
 
 import currencies from "../data/currencies";
 
-function CurrencyCard({ srcCode, dstCode }) {
+function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
   function loadCurrenciesJson() {
     let tmpJson = {};
     currencies.forEach((currency) => {
@@ -27,11 +27,12 @@ function CurrencyCard({ srcCode, dstCode }) {
         console.log(result);
         setExchangeRate(result);
       });
-  }, [src]);
+  }, [src, dst]);
 
   const handleSelectOptionChange = (e) => {
     console.log("handleSelectOptionChange is called");
     setSrc(e.target.value);
+    sendCodeToParent(e.target.value);
   };
 
   const handleInputChange = (e) => {
