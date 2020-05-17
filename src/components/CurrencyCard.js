@@ -4,7 +4,7 @@ import "./CurrencyCard.css";
 
 import currencies from "../data/currencies";
 
-function CurrencyCard({ srcCode, dstCode, amount }) {
+function CurrencyCard({ srcCode, dstCode }) {
   function loadCurrenciesJson() {
     let tmpJson = {};
     currencies.forEach((currency) => {
@@ -14,40 +14,37 @@ function CurrencyCard({ srcCode, dstCode, amount }) {
   }
 
   const [currenciesJson] = useState(loadCurrenciesJson());
-  const [exchangeCode, setExchangeCode] = useState(srcCode);
-  const [targetCode, setTargetCode] = useState(dstCode);
+  const [src, setSrc] = useState(srcCode);
+  const [dst, setTargetCode] = useState(dstCode);
   const [exchangeRate, setExchangeRate] = useState({ rates: {} });
-  const [exchangeAmount, setExchangeAmount] = useState(amount);
-
-  const handleChange = (e) => {
-    setExchangeCode(e.target.value);
-  };
 
   useEffect(() => {
     fetch(
-      "https://api.exchangeratesapi.io/latest?symbols=" +
-        targetCode +
-        "&base=" +
-        exchangeCode
+      "https://api.exchangeratesapi.io/latest?symbols=" + dst + "&base=" + src
     )
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
         setExchangeRate(result);
       });
-  }, [exchangeCode, srcCode]);
+  }, [src]);
 
-  function changeSelect(event) {
-    setExchangeCode(event.target.value);
-  }
+  const handleSelectOptionChange = (e) => {
+    console.log("handleSelectOptionChange is called");
+    setSrc(e.target.value);
+  };
+
+  const handleInputChange = (e) => {
+    console.log("handleInputChange is called");
+  };
 
   return (
     <Card className="h-100 shadow-sm rounded">
       <Card.Header className="bg-white">
         <select
           className="form-control col-xs-3"
-          onChange={changeSelect}
-          value={exchangeCode}
+          onChange={handleSelectOptionChange}
+          value={src}
         >
           {currencies.map((currency) => {
             return (
@@ -59,9 +56,10 @@ function CurrencyCard({ srcCode, dstCode, amount }) {
         </select>
       </Card.Header>
       <Card.Body>
-        <Card.Title>{currenciesJson[exchangeCode].currency_name}</Card.Title>
+        <Card.Title>{currenciesJson[src].currency_name}</Card.Title>
+        {/* <Card.Subtitle>{currenciesJson[src].display_unicode}</Card.Subtitle> */}
         <Card.Subtitle>
-          {currenciesJson[exchangeCode].display_unicode}
+          1 {src} = {exchangeRate.rates[dst]} {dst}
         </Card.Subtitle>
         <Row>
           <Col sm={3}>
@@ -69,7 +67,7 @@ function CurrencyCard({ srcCode, dstCode, amount }) {
               alt="flag of United States"
               src={
                 "https://www.countryflags.io/" +
-                currenciesJson[exchangeCode].flag_name +
+                currenciesJson[src].flag_name +
                 "/shiny/64.png"
               }
             />
@@ -78,8 +76,7 @@ function CurrencyCard({ srcCode, dstCode, amount }) {
             <input
               type="number"
               title="Please enter a number, e.g. 123.987."
-              value={amount}
-              onChange={handleChange}
+              onChange={handleInputChange}
               className="h-100 w-100 text-right border-top-0 border-left-0 border-right-0 fs-xlg"
             />
           </Col>
