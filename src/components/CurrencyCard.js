@@ -27,10 +27,6 @@ function CurrencyCard({
 
   useEffect(() => {
     fetch(
-      // "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
-      //   dst +
-      //   "&base=" +
-      //   src
       "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
         dst +
         "," +
