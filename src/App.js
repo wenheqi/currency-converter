@@ -12,6 +12,7 @@ function App() {
   const [srcCode, setSrcCode] = useState("USD");
   const [dstCode, setDstCode] = useState("HKD");
   const [amountInEuro, setAmountInEuro] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   const sendSrcCodeToParent = (code) => {
     setSrcCode(code);
@@ -25,11 +26,13 @@ function App() {
     setAmountInEuro(amount);
   };
 
-  const swap = () => {
+  const swap = (e) => {
+    setRotation(rotation == 0 ? 360 : 0);
     let tmpSrc = srcCode;
     let tmpDst = dstCode;
     setSrcCode(tmpDst);
     setDstCode(tmpSrc);
+    console.log(e);
   };
 
   return (
@@ -54,12 +57,21 @@ function App() {
                 />
               </div>
               <div className="col-12 col-lg-2 m-auto">
-                <img
-                  className="img-fluid d-block mx-auto p-4 p-lg-0 w-25"
-                  src={swapSvg}
-                  alt="swap"
-                  onClick={swap}
-                ></img>
+                <OverlayTrigger
+                  key="tooltip-key-swap"
+                  placement="top"
+                  overlay={
+                    <Tooltip id="tooltip-swap3">Swap currencies</Tooltip>
+                  }
+                >
+                  <img
+                    className="img-fluid d-block mx-auto p-4 p-lg-0 w-25 swap"
+                    style={{ transform: `rotate(${rotation}deg)` }}
+                    src={swapSvg}
+                    alt="swap"
+                    onClick={swap}
+                  ></img>
+                </OverlayTrigger>
               </div>
               <div className="col-12 col-lg-5">
                 <CurrencyCard
