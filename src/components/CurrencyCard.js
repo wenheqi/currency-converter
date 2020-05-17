@@ -34,7 +34,7 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
   }, [dstCode]);
 
   useEffect(() => {
-    setDst(srcCode);
+    setSrc(srcCode);
   }, [srcCode]);
 
   const handleSelectOptionChange = (e) => {
