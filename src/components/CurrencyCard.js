@@ -20,7 +20,14 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
 
   useEffect(() => {
     fetch(
-      "https://api.exchangeratesapi.io/latest?symbols=" + dst + "&base=" + src
+      // "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
+      //   dst +
+      //   "&base=" +
+      //   src
+      "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
+        dst +
+        "," +
+        src
     )
       .then((res) => res.json())
       .then((result) => {
@@ -47,6 +54,11 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
     console.log("handleInputChange is called");
   };
 
+  const displayDate = (timestamp) => {
+    let date = new Date(timestamp);
+    return date.toUTCString();
+  };
+
   return (
     <Card className="h-100 shadow-sm rounded">
       <Card.Header className="bg-white">
@@ -71,7 +83,11 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
         <Card.Title>{currenciesJson[src].currency_name}</Card.Title>
         {/* <Card.Subtitle>{currenciesJson[src].display_unicode}</Card.Subtitle> */}
         <Card.Subtitle>
-          1 {src} = {exchangeRate.rates[dst]} {dst}
+          1 {src} ={" "}
+          {Number.parseFloat(
+            (exchangeRate.rates[src] * 1.0) / exchangeRate.rates[dst]
+          ).toFixed(5)}{" "}
+          {dst}
         </Card.Subtitle>
         <Row>
           <Col sm={3}>
@@ -95,7 +111,10 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
         </Row>
         <Row className="mt-2">
           <Col>
-            <span className="fs-sm">Last update: {exchangeRate.date}</span>
+            <span className="fs-sm">
+              Last update:{" "}
+              {displayDate(Number.parseInt(exchangeRate.timestamp) * 1000)}
+            </span>
           </Col>
         </Row>
       </Card.Body>
