@@ -11,7 +11,7 @@ import HistorialCard from "./components/HistorialCard";
 function App() {
   const [srcCode, setSrcCode] = useState("USD");
   const [srcTargetAmount, setSrcTargetAmount] = useState(0);
-  const [dstCode, setDstCode] = useState("CNY");
+  const [dstCode, setDstCode] = useState("HKD");
   const [dstTargetAmount, setDstTargetAmount] = useState(0);
 
   return (
@@ -29,7 +29,7 @@ function App() {
               <div className="col-12 col-lg-5">
                 <CurrencyCard
                   srcCode={srcCode}
-                  //setSrcCode={setSrcCode}
+                  setSrcCode={setSrcCode}
                   dstCode={dstCode}
                   amount={dstTargetAmount}
                 />
@@ -52,7 +52,7 @@ function App() {
               <div className="col-12 col-lg-5">
                 <CurrencyCard
                   srcCode={dstCode}
-                  //setSrcCode={setDstCode}
+                  setSrcCode={setDstCode}
                   dstCode={srcCode}
                   amount={srcTargetAmount}
                 />
