@@ -15,7 +15,7 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
 
   const [currenciesJson] = useState(loadCurrenciesJson());
   const [src, setSrc] = useState(srcCode);
-  const [dst, setTargetCode] = useState(dstCode);
+  const [dst, setDst] = useState(dstCode);
   const [exchangeRate, setExchangeRate] = useState({ rates: {} });
 
   useEffect(() => {
@@ -28,6 +28,14 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
         setExchangeRate(result);
       });
   }, [src, dst]);
+
+  useEffect(() => {
+    setDst(dstCode);
+  }, [dstCode]);
+
+  useEffect(() => {
+    setDst(srcCode);
+  }, [srcCode]);
 
   const handleSelectOptionChange = (e) => {
     console.log("handleSelectOptionChange is called");
@@ -49,7 +57,10 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
         >
           {currencies.map((currency) => {
             return (
-              <option key={currency.currency_code}>
+              <option
+                key={currency.currency_code}
+                // selected={src == currency.currency_code ? true : false}
+              >
                 {currency.currency_code}
               </option>
             );
