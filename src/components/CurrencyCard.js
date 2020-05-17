@@ -54,7 +54,7 @@ function CurrencyCard({
       tmpAmount = Number.parseFloat(tmpAmount.toFixed(5));
       setAmount(tmpAmount);
     }
-  }, [amountInEuro, src, dst]);
+  }, [amountInEuro, src, dst, exchangeRate]);
 
   const handleSelectOptionChange = (e) => {
     // console.log("handleSelectOptionChange is called");
