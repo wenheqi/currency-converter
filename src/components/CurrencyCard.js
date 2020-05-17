@@ -4,7 +4,13 @@ import "./CurrencyCard.css";
 
 import currencies from "../data/currencies";
 
-function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
+function CurrencyCard({
+  srcCode,
+  dstCode,
+  sendCodeToParent,
+  amountInEuro,
+  sendAmountInEuroToParent,
+}) {
   function loadCurrenciesJson() {
     let tmpJson = {};
     currencies.forEach((currency) => {
@@ -17,6 +23,7 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
   const [src, setSrc] = useState(srcCode);
   const [dst, setDst] = useState(dstCode);
   const [exchangeRate, setExchangeRate] = useState({ rates: {} });
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     fetch(
@@ -44,14 +51,20 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
     setSrc(srcCode);
   }, [srcCode]);
 
+  useEffect(() => {
+    setAmount(amountInEuro * exchangeRate.rates[src]);
+  }, [amountInEuro]);
+
   const handleSelectOptionChange = (e) => {
-    console.log("handleSelectOptionChange is called");
+    // console.log("handleSelectOptionChange is called");
     setSrc(e.target.value);
     sendCodeToParent(e.target.value);
   };
 
   const handleInputChange = (e) => {
-    console.log("handleInputChange is called");
+    console.log("EUR is " + e.target.value / exchangeRate.rates[src]);
+    setAmount(e.target.value);
+    sendAmountInEuroToParent(e.target.value / exchangeRate.rates[src]);
   };
 
   const displayDate = (timestamp) => {
@@ -85,7 +98,7 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
         <Card.Subtitle>
           1 {src} ={" "}
           {Number.parseFloat(
-            (exchangeRate.rates[src] * 1.0) / exchangeRate.rates[dst]
+            (exchangeRate.rates[dst] * 1.0) / exchangeRate.rates[src]
           ).toFixed(5)}{" "}
           {dst}
         </Card.Subtitle>
@@ -104,6 +117,7 @@ function CurrencyCard({ srcCode, dstCode, sendCodeToParent }) {
             <input
               type="number"
               title="Please enter a number, e.g. 123.987."
+              value={amount}
               onChange={handleInputChange}
               className="h-100 w-100 text-right border-top-0 border-left-0 border-right-0 fs-xlg"
             />

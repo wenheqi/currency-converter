@@ -11,6 +11,7 @@ import HistorialCard from "./components/HistorialCard";
 function App() {
   const [srcCode, setSrcCode] = useState("USD");
   const [dstCode, setDstCode] = useState("HKD");
+  const [amountInEuro, setAmountInEuro] = useState(0);
 
   const sendSrcCodeToParent = (code) => {
     setSrcCode(code);
@@ -18,6 +19,10 @@ function App() {
 
   const sendDstCodeToParent = (code) => {
     setDstCode(code);
+  };
+
+  const sendAmountInEuroToParent = (amount) => {
+    setAmountInEuro(amount);
   };
 
   return (
@@ -37,6 +42,8 @@ function App() {
                   srcCode={srcCode}
                   dstCode={dstCode}
                   sendCodeToParent={sendSrcCodeToParent}
+                  amountInEuro={amountInEuro}
+                  sendAmountInEuroToParent={sendAmountInEuroToParent}
                 />
               </div>
               <div className="col-12 col-lg-2 m-auto">
@@ -51,6 +58,8 @@ function App() {
                   srcCode={dstCode}
                   dstCode={srcCode}
                   sendCodeToParent={sendDstCodeToParent}
+                  amountInEuro={amountInEuro}
+                  sendAmountInEuroToParent={sendAmountInEuroToParent}
                 />
               </div>
             </div>
