@@ -25,6 +25,13 @@ function App() {
     setAmountInEuro(amount);
   };
 
+  const swap = () => {
+    let tmpSrc = srcCode;
+    let tmpDst = dstCode;
+    setSrcCode(tmpDst);
+    setDstCode(tmpSrc);
+  };
+
   return (
     <div
       className="container"
@@ -51,6 +58,7 @@ function App() {
                   className="img-fluid d-block mx-auto p-4 p-lg-0 w-25"
                   src={swapSvg}
                   alt="swap"
+                  onClick={swap}
                 ></img>
               </div>
               <div className="col-12 col-lg-5">
