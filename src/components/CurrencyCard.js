@@ -52,7 +52,12 @@ function CurrencyCard({
   }, [srcCode]);
 
   useEffect(() => {
-    setAmount(amountInEuro * exchangeRate.rates[src]);
+    let tmpAmount = amountInEuro * exchangeRate.rates[src];
+    // console.log("tmpAmount is " + tmpAmount);
+    if (Math.abs(tmpAmount - amount) > 0.00001) {
+      tmpAmount = Number.parseFloat(tmpAmount.toFixed(5));
+      setAmount(tmpAmount);
+    }
   }, [amountInEuro]);
 
   const handleSelectOptionChange = (e) => {
@@ -62,7 +67,7 @@ function CurrencyCard({
   };
 
   const handleInputChange = (e) => {
-    console.log("EUR is " + e.target.value / exchangeRate.rates[src]);
+    // console.log("EUR is " + e.target.value / exchangeRate.rates[src]);
     setAmount(e.target.value);
     sendAmountInEuroToParent(e.target.value / exchangeRate.rates[src]);
   };
