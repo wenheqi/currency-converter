@@ -27,10 +27,11 @@ function CurrencyCard({
 
   useEffect(() => {
     fetch(
-      "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
-        dst +
-        "," +
-        src
+      // "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0&symbols=" +
+      //   dst +
+      //   "," +
+      //   src
+      "https://api.exchangerate-api.com/v4/latest/euro"
     )
       .then((res) => res.json())
       .then((result) => {
@@ -128,7 +129,10 @@ function CurrencyCard({
           <Col>
             <span className="fs-sm">
               Last update:{" "}
-              {displayDate(Number.parseInt(exchangeRate.timestamp) * 1000)}
+              {/* {displayDate(Number.parseInt(exchangeRate.timestamp) * 1000)} */}
+              {displayDate(
+                Number.parseInt(exchangeRate.time_last_updated) * 1000
+              )}
             </span>
           </Col>
         </Row>

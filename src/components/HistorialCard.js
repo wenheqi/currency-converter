@@ -11,51 +11,14 @@ import {
   Legend,
 } from "recharts";
 
-// const data = [
-//   { name: "AED", rate: 3.97467 },
-//   { name: "AFN", rate: 83.005989 },
-//   { name: "ALL", rate: 123.366634 },
-//   { name: "AMD", rate: 527.975462 },
-//   { name: "ANG", rate: 1.941971 },
-//   { name: "AOA", rate: 603.731679 },
-//   { name: "ARS", rate: 73.193491 },
-//   { name: "AUD", rate: 1.687 },
-//   { name: "AWG", rate: 1.947888 },
-//   { name: "AZN", rate: 1.843968 },
-//   { name: "BAM", rate: 1.957295 },
-
-//   { name: "AED", rate: 3.97467 },
-//   { name: "AFN", rate: 83.005989 },
-//   { name: "ALL", rate: 123.366634 },
-//   { name: "AMD", rate: 527.975462 },
-//   { name: "ANG", rate: 1.941971 },
-//   { name: "AOA", rate: 603.731679 },
-//   { name: "ARS", rate: 73.193491 },
-//   { name: "AUD", rate: 1.687 },
-//   { name: "AWG", rate: 1.947888 },
-//   { name: "AZN", rate: 1.843968 },
-//   { name: "BAM", rate: 1.957295 },
-
-//   { name: "AED", rate: 3.97467 },
-//   { name: "AFN", rate: 83.005989 },
-//   { name: "ALL", rate: 123.366634 },
-//   { name: "AMD", rate: 527.975462 },
-//   { name: "ANG", rate: 1.941971 },
-//   { name: "AOA", rate: 603.731679 },
-//   { name: "ARS", rate: 73.193491 },
-//   { name: "AUD", rate: 1.687 },
-//   { name: "AWG", rate: 1.947888 },
-//   { name: "AZN", rate: 1.843968 },
-//   { name: "BAM", rate: 1.957295 },
-// ];
-
 export default function HistorialCard({ src, dst }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     console.log("useEffect in Historical card is called");
     fetch(
-      "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0"
+      // "http://data.fixer.io/api/latest?access_key=7d8d9e998e00341ea569445f3215f0a0"
+      "https://api.exchangerate-api.com/v4/latest/euro"
     )
       .then((res) => res.json())
       .then((json) => json.rates)
